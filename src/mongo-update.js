@@ -16,11 +16,11 @@ MongoClient.connect(url, (err, client) => {
     const db = client.db(dbName);
 
     // deleteMany
-    db.collection('Todos').findOneAndUpdate({
-        _id: new ObjectID('5b45ec52a0d7bd29c8e7eb1a')
+    db.collection('Users').findOneAndUpdate({
+        name: 'Violetta'
     }, {
-        $set: {
-            completed: true
+        $inc: {
+            age: -4
         }
     }, {
         returnOriginal: false
