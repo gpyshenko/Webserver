@@ -30,7 +30,7 @@ MongoClient.connect(url, (err, client) => {
     //     console.log('Unable to fetch todos', err)
     // });
 
-    db.collection('Users').find({location: 'USA'}).toArray().then((docs) => {
+    db.collection('todos').find({ text: 'Cook dinner'}).toArray().then((docs) => {
         console.log(JSON.stringify(docs, undefined, 2));
     }, (err) => {
         console.log('Unable to fetch todos', err)
