@@ -1,5 +1,5 @@
 const express = require('express');
-const hbs = require('hbs');
+//const hbs = require('hbs');
 const fs = require('fs');
 const _ = require('lodash');
 const cors = require('cors');
@@ -17,16 +17,14 @@ var { mongoose } = require('./db/mongoose');
 var routesUsers = require('./routes/users')(app);
 var routesTodos = require('./routes/todos')(app);
 
-hbs.registerPartials(__dirname + '/views/partials')
-app.set('view engine', 'hbs');
- 
+//hbs.registerPartials(__dirname + '/views/partials')
+//app.set('view engine', 'hbs');
+app.set('view engine', 'pug')
 
-hbs.registerHelper('screamIt', (text) => {
-    return text.toUpperCase();
-})
+
 
 app.get('/', (req, res) => {
-    res.render('index.hbs', {
+    res.render('index.pug', {
         pageTitle: 'Home Page',
         welcomeMessage: 'Welcome to my Website'
     })
