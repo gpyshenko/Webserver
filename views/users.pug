@@ -1,0 +1,15 @@
+extends base/base
+block main
+    each user in users
+        if(user.age === 23)
+            .title 23 года
+            .user
+                .user-name=user.name
+                .user-email=user.email
+                .user-age=user.age
+        else if(user.age <= 23)
+            .title Меньше 23
+            .user
+                .user-name=user.name
+                .user-email=user.email
+                .user-age=user.age

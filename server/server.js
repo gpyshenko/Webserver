@@ -17,20 +17,15 @@ var { mongoose } = require('./db/mongoose');
 var routesUsers = require('./routes/users')(app);
 var routesTodos = require('./routes/todos')(app);
 
-//hbs.registerPartials(__dirname + '/views/partials')
-//app.set('view engine', 'hbs');
 app.set('view engine', 'pug')
-
-
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
     res.render('index.pug', {
         pageTitle: 'Home Page',
         welcomeMessage: 'Welcome to my Website'
     })
-});
-
-
+}); 
 
 app.listen(3000, () => {
     console.log('Started on port 3000');
