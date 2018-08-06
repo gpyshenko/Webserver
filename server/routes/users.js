@@ -6,13 +6,15 @@ module.exports = function (app) {
     app.post('/users', (req, res) => {
         var user = new User({
             name: req.body.name,
-            email: req.body.email
+            email: req.body.email,
+            age: req.body.age,
+            password: req.body.password
         });
 
-        user.save().then((doc) => {
-            res.send(doc);
+        user.save().then((user) => {
+            res.send(user);
         }, (e) => {
-            res.staus(400).send(e);
+            res.status(400).send(e);
         });
     });
 
@@ -27,7 +29,7 @@ module.exports = function (app) {
         })
     });
 
-    app.get('/bd/users', (req, res) => {
+    app.get('/db/users', (req, res) => {
         User.find().then((users) => {
             res.send({ users });
         }, (e) => {
@@ -58,7 +60,7 @@ module.exports = function (app) {
 
     });
 
-    app.get('/bd/users/:id', (req, res) => {
+    app.get('/db/users/:id', (req, res) => {
         var id = req.params.id;
 
         if (!ObjectID.isValid(id)) {
