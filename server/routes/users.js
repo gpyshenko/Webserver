@@ -11,11 +11,13 @@ module.exports = function (app) {
             password: req.body.password
         });
 
-        user.save().then((user) => {
-            res.send(user);
-        }, (e) => {
-            res.status(400).send(e);
-        });
+        user.save().then(() => {
+            return user.generateAuthToken();
+        }).then((token) => {
+            res.header('x-auth', token).send(user);
+        }).catch((err) => {
+            res.status(400).send(err);
+        })
     });
 
     app.get('/users', (req, res) => {
