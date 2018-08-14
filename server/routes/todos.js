@@ -1,14 +1,13 @@
 const _ = require('lodash');
 const { ObjectID } = require('mongodb');
-
+var { authenticate } = require('../middleware/authenticate');
 var { Todo } = require('../models/todo');
 
 module.exports = function (app) {
-    app.post('/todos', (req, res) => {
+    app.post('/todos', authenticate, (req, res) => {
         var todo = new Todo({
             text: req.body.text,
-            difficult: req.body.difficult,
-            completed: req.body.completed
+            _creator: req.user._id,
         });
 
         todo.save().then((doc) => {
@@ -18,8 +17,10 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/todos', (req, res) => {
-        Todo.find().then((todos) => {
+    app.get('/todos', authenticate, (req, res) => {
+        Todo.find({
+            _creator: req.user._id
+        }).then((todos) => {
             res.send({ todos });
         }, (e) => {
             res.status(400).send(e);
