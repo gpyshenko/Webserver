@@ -1,0 +1,7 @@
+extends base/base
+block main
+    if office
+        p=`Офис номер:${office}`
+    form(action="/contacts/submit" method="post")
+        input(type="text" name="id")
+        button(type="submit") Отправить
