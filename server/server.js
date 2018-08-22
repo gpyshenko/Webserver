@@ -3,6 +3,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+var path = require('path');
 
 var param = process.argv[2];
 var app = express();
@@ -22,7 +23,8 @@ var routesUsers = require('./routes/users')(app);
 var routesTodos = require('./routes/todos')(app);
 
 app.set('view engine', 'pug')
-app.use(express.static(__dirname + '/public'));
+console.log(__dirname)
+app.use(express.static(__dirname + path.normalize('/public')));
 
 app.get('/', (req, res) => {
     res.render('index.pug', {
@@ -46,6 +48,19 @@ app.get('/contacts/:id', (req, res) => {
 app.post('/contacts/submit', (req, res) => {
     var id = req.body.id;
     res.redirect('/contacts/' + id)
+})
+
+app.use(function(req,res,next) {
+    res.status(404);
+    res.render('404.pug', {
+        pageTitle: 'Страница 404'
+    })
+})
+
+app.use(function (err,req,res,next) {
+    console.log(err.stack);
+    res.status(500);
+    res.render('500.pug')
 })
 
 app.listen(3000, () => {
