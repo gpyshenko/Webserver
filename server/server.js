@@ -22,16 +22,17 @@ var { mongoose } = require('./db/mongoose');
 var routesUsers = require('./routes/users')(app);
 var routesTodos = require('./routes/todos')(app);
 
-app.set('view engine', 'pug')
-console.log(__dirname)
-app.use(express.static(__dirname + path.normalize('/public')));
+app.set('view engine', 'pug');
+app.set("views", path.join(__dirname, "../views"));
+
+app.use('/static', express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
     res.render('index.pug', {
         pageTitle: 'Home Page'
     })
 }); 
-
+ 
 app.get('/contacts', (req,res) => {
     res.render('contacts.pug', {
         pageTitle: 'Контакты'
