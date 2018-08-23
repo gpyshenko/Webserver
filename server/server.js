@@ -28,6 +28,7 @@ app.set("views", path.join(__dirname, "../views"));
 app.use('/static', express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
+    //console.log(req.acceptsLanguages);
     res.render('index.pug', {
         pageTitle: 'Home Page'
     })
