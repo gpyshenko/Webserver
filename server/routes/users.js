@@ -5,7 +5,7 @@ var {authenticate} = require('../middleware/authenticate');
 
 module.exports = function (app) {
 
-    app.post('/users', (req, res) => {
+    app.post('/db/users', (req, res) => {
         var user = new User({
             name: req.body.name,
             email: req.body.email,
